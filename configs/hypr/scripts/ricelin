@@ -4,7 +4,7 @@
 #
 # Thin wrapper over the two quickshell surfaces (the pill and the lock), their
 # watchdogs and the update engine. The watchdog is what keeps a surface alive: it
-# respawns `qs -c <name> -d` whenever the instance dies. So `stop` has to take the
+# respawns `qs -p $QS_DIR/<name> -d` whenever the instance dies. So `stop` has to take the
 # watchdog down too or the surface just comes back, while `restart` leaves the
 # watchdog running and only cycles the instance.
 #
@@ -15,6 +15,8 @@
 #   ricelin update                    check, show changelog, apply, restart
 #   ricelin status                    what's running and the installed version
 
+# RICELIN-FORK: configs live at $QS_DIR/<name>, not root; use -p with full path.
+QS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/quickshell/ricelin"
 SCRIPTS="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts"
 ENGINE="$SCRIPTS/ricelin-update.py"
 WATCHDOG="$SCRIPTS/watchdog.sh"
@@ -76,7 +78,7 @@ targets() {
     esac
 }
 
-is_up() { qs -c "$1" ipc show >/dev/null 2>&1; }
+is_up() { qs -p "$QS_DIR/$1" ipc show >/dev/null 2>&1; }
 wd_up() { pgrep -f "watchdog.sh $1" >/dev/null 2>&1; }
 
 # Launch a detached watchdog. A second one for the same surface hits the flock in
@@ -114,7 +116,7 @@ cmd_start() {
 cmd_stop() {
     for s in $(targets "$1" all); do
         pkill -f "watchdog.sh $s" 2>/dev/null
-        qs -c "$s" kill >/dev/null 2>&1
+        qs -p "$QS_DIR/$s" kill >/dev/null 2>&1
         act stopped "$s"
     done
 }
@@ -123,10 +125,10 @@ cmd_restart() {
     for s in $(targets "$1" pill); do
         had_wd=no
         wd_up "$s" && had_wd=yes
-        qs -c "$s" kill >/dev/null 2>&1
+        qs -p "$QS_DIR/$s" kill >/dev/null 2>&1
         sleep 0.4
         if [ "$had_wd" = yes ]; then
-            is_up "$s" || qs -c "$s" -d >/dev/null 2>&1
+            is_up "$s" || qs -p "$QS_DIR/$s" -d >/dev/null 2>&1
         else
             start_wd "$s"
         fi
@@ -139,7 +141,7 @@ cmd_log() {
     case "$1" in
         pill | lock) surface="$1"; shift ;;
     esac
-    exec qs -c "$surface" log -f "$@"
+    exec qs -p "$QS_DIR/$surface" log -f "$@"
 }
 
 cmd_update() {

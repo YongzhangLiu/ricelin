@@ -1,5 +1,7 @@
 #!/bin/sh
 name="$1"
+# RICELIN-FORK: configs at $QS_DIR/<name>, not root; use -p with full path.
+QS_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/quickshell/ricelin"
 exec 9>"${XDG_RUNTIME_DIR:-/tmp}/${name}-watchdog.lock"
 flock -n 9 || exit 0
 
@@ -10,16 +12,16 @@ flock -n 9 || exit 0
 # the layer surface and keyboard focus. The wait is capped so a launch that
 # never comes up still falls back to the normal retry cadence.
 launch() {
-    qs -c "$name" -d 9>&- 2>/dev/null
+    qs -p "$QS_DIR/$name" -d 9>&- 2>/dev/null
     i=0
     while [ "$i" -lt 30 ]; do
-        qs -c "$name" ipc show >/dev/null 2>&1 && return
+        qs -p "$QS_DIR/$name" ipc show >/dev/null 2>&1 && return
         sleep 1
         i=$((i + 1))
     done
 }
 
 while true; do
-    qs -c "$name" ipc show >/dev/null 2>&1 || launch
+    qs -p "$QS_DIR/$name" ipc show >/dev/null 2>&1 || launch
     sleep 5
 done

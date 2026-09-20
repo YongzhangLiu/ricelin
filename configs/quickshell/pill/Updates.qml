@@ -317,6 +317,11 @@ SettingsSurface {
     }
 
     /**
+     * RICELIN-FORK: configs at $qsRoot/<name>, not root; use -p with full path.
+     */
+    readonly property string qsRoot: Quickshell.env("HOME") + "/.config/quickshell/ricelin"
+
+    /**
      * Relaunch the pill on its own. setsid detaches the relaunch so it outlives the
      * instance it kills, and the guard skips a second spawn if the watchdog already
      * brought it back. Settings persist through flags.json, so it returns as it was.
@@ -324,7 +329,7 @@ SettingsSurface {
     Process {
         id: restartProc
         command: ["setsid", "sh", "-c",
-            "qs -c pill kill; sleep 0.4; qs -c pill ipc show >/dev/null 2>&1 || qs -c pill -d"]
+            "qs -p '" + qsRoot + "/pill' kill; sleep 0.4; qs -p '" + qsRoot + "/pill' ipc show >/dev/null 2>&1 || qs -p '" + qsRoot + "/pill' -d"]
     }
 
     /**
