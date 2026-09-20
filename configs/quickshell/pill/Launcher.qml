@@ -47,8 +47,8 @@ PillSurface {
     /** Row index currently in AppImage edit mode (rename plus armed delete), -1 when none. */
     property int editIndex: -1
 
-    readonly property string appimageScript: Quickshell.env("HOME") + "/.config/hypr/scripts/app-install.sh"
-    readonly property string guardScript: Quickshell.env("HOME") + "/.config/hypr/scripts/launch-guard.sh"
+    readonly property string appimageScript: Paths.scriptsDir + "/app-install.sh"
+    readonly property string guardScript: Paths.scriptsDir + "/launch-guard.sh"
 
     /**
      * entry.execute() is fire and forget, so an app that dies on startup fails
