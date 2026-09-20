@@ -12,7 +12,7 @@ if [ -z "$WPDIR" ]; then
         n=$(find "$cand" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.mp4' -o -iname '*.webm' -o -iname '*.mkv' -o -iname '*.mov' \) | head -2 | wc -l)
         if [ "$n" -ge 2 ]; then WPDIR="$cand"; break; fi
     done
-    [ -n "$WPDIR" ] || WPDIR="$HOME/Ricelin/wallpapers"
+    [ -n "$WPDIR" ] || WPDIR="$HOME/Pictures/Wallpapers"
 fi
 RESOLVED="${XDG_STATE_HOME:-$HOME/.local/state}/ricelin-wallpaper-dir"
 printf '%s\n' "$WPDIR" > "$RESOLVED"
