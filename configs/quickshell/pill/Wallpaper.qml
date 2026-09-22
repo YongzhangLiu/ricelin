@@ -14,7 +14,7 @@ import "Singletons"
  * first. The focused thumb is large and fully lit; neighbours shrink, dim and
  * desaturate as they slide under it, so the strip reads as depth. Arrow keys
  * and wheel move focus, clicking a neighbour glides to it, Enter or a tap on
- * the focused thumb applies it via wallpaper.sh (strip stays open so you can
+ * the focused thumb applies it via zos-wallpaper-apply (strip stays open so you can
  * keep trying picks). Hold the focused thumb for the heat duration to trash the
  * file (press-and-hold confirm, same as the clipboard wipe); progress sweeps
  * along the thumb's lower edge and drains on early release.
@@ -212,7 +212,11 @@ PillSurface {
             dlProc.command = ["bash", root.searchScript, "download", entry.image];
             dlProc.running = true;
         } else {
-            Walls.apply(entry.path);
+            // Default Enter behaviour: paint every connected monitor. The
+            // monMap shown on the focused tile still routes to a single
+            // output via tile-click — see monMapClick() above. Per-output
+            // pick stays available as the explicit opt-in path.
+            Walls.apply(entry.path, "all");
         }
     }
 

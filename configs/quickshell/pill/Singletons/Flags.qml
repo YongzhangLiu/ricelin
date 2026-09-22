@@ -76,9 +76,9 @@ Singleton {
             property bool clockSeconds: false
             property bool showGlyphs: true
             property string paletteMode: "static"
-            /** Explicit wallpaper folder override. Empty means autodetect: the dir wallpaper.sh last resolved (ricelin-wallpaper-dir state file), then ~/Pictures/Wallpapers. Lives in user state so an in-app update never clobbers a custom folder. */
+            /** Explicit wallpaper folder override. Empty means autodetect: the dir zos-wallpaper-thumbs resolve last resolved (zos-wallpaper-dir state file), then ~/Pictures/Wallpapers. Lives in user state so an in-app update never clobbers a custom folder. */
             property string wallpaperDir: ""
-            /** Super+B random target: "all" repaints every monitor, "cursor" only the one under the pointer. */
+            /** Wallpaper target scope: "all" repaints every monitor, "cursor" only the one under the pointer. Used by SUPER+CTRL+SPACE pill picker per-output selection. */
             property string randomScope: "all"
             property real uiScale: 1.0
             property bool reduceMotion: false

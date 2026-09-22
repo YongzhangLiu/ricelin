@@ -67,7 +67,7 @@ SettingsSurface {
     Process {
         id: dynamicProc
         command: ["sh", "-c",
-            "f=\"${XDG_STATE_HOME:-$HOME/.local/state}/ricelin-wallpaper\"; pic=$(cat \"$f\" 2>/dev/null); case \"$pic\" in *.[Mm][Pp]4|*.[Ww][Ee][Bb][Mm]|*.[Mm][Kk][Vv]|*.[Mm][Oo][Vv]) pic=\"${XDG_STATE_HOME:-$HOME/.local/state}/ricelin-wallpaper-still.png\";; esac; [ -f \"$pic\" ] && python3 \"" + root.wallcolorsPy + "\" \"$pic\" >/dev/null 2>&1; hyprctl reload >/dev/null 2>&1; busctl --user call com.mitchellh.ghostty /com/mitchellh/ghostty org.gtk.Actions Activate \"sava{sv}\" reload-config 0 0 >/dev/null 2>&1 || true"]
+            "f=\"${XDG_STATE_HOME:-$HOME/.local/state}/zos-wallpaper\"; pic=$(cat \"$f\" 2>/dev/null); case \"$pic\" in *.[Mm][Pp]4|*.[Mm]4[Vv]|*.[Ww][Ee][Bb][Mm]|*.[Mm][Kk][Vv]|*.[Mm][Oo][Vv]|*.[Gg][Ii][Ff]|*.[Aa][Vv][Ii]|*.[Ff][Ll][Vv]|*.[Ww][Mm][Vv]|*.[Mm][Pp][Gg]|*.[Mm][Pp][Ee][Gg]|*.[Tt][Ss]|*.[Oo][Gg][Vv]|*.[Vv][Oo][Bb]|*.[Mm]2[Tt][Ss]|*.[Mm][Tt][Ss]|3[Gg][Pp]|3[Gg]2|*.[Aa][Ss][Ff]) pic=\"${XDG_STATE_HOME:-$HOME/.local/state}/zos-wallpaper-still.png\";; esac; [ -f \"$pic\" ] && python3 \"" + root.wallcolorsPy + "\" \"$pic\" >/dev/null 2>&1; hyprctl reload >/dev/null 2>&1; busctl --user call com.mitchellh.ghostty /com/mitchellh/ghostty org.gtk.Actions Activate \"sava{sv}\" reload-config 0 0 >/dev/null 2>&1 || true"]
     }
 
     Connections {

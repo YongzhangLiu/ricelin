@@ -470,7 +470,7 @@ Item {
     }
 
     /**
-     * Apply the wallpaper strip's focused thumb through wallpaper.sh. The
+     * Apply the wallpaper strip's focused thumb through zos-wallpaper-apply. The
      * surface stays open so the pick can be iterated. No-op unless the
      * wallpaper surface is open.
      */

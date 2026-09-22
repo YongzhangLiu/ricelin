@@ -3,7 +3,7 @@
   input to ImageMagick. Only plain raster coders may run; delegates, the
   MVG/MSL/PS/text family and indirect @file reads are the historical RCE
   vectors and stay off. Activated via MAGICK_CONFIGURE_PATH in
-  cliphist-thumbs.sh and wallpaper-thumbs.sh.
+  cliphist-thumbs.sh.
 -->
 <policymap>
   <policy domain="delegate" rights="none" pattern="*"/>
